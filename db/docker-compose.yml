@@ -1,0 +1,10 @@
+version: "3"
+services:
+  postgres:
+    build: .
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_DB: shop_data
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: admin

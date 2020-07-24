@@ -1,0 +1,77 @@
+{% extends "base.html" %} {% block body %}
+<div class="row">
+  <h1>ご来店ありがとうございます</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>商品</th>
+        <th>金額</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for param in data %}
+      <tr>
+        <th>
+          {{ param['product_name'] }}
+        </th>
+        <th>
+          ¥{{ param['price'] }}
+        </th>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <button id="checkout" type="button" class="btn btn-success w-100 mt-2">
+    LINE Payで支払い
+  </button>
+</div>
+<script>
+  window.onload = function (e) {
+    initLiff("1654480575-27WDXKOZ");
+  };
+  function initLiff(myLiffId) {
+    liff
+      .init({
+        liffId: myLiffId,
+      })
+      .then(() => {
+        if (!liff.isInClient()) {
+          alert("LINEアプリで起動してください");
+        } else {
+          // start to use LIFF's api
+          liff
+            .getProfile()
+            .then(function (profile) {
+              userId = profile.userId;
+              userName = profile.displayName;
+              if (!liff.isInClient()) {
+                document.getElementById("logout").style.display = "block";
+              }
+            })
+            .catch(function (error) {
+              window.alert("Error getting profile: " + error);
+            });
+        }
+      });
+  }
+
+  // checkout操作
+  $("#checkout").on("click", function () {
+    var params = {
+      user_id: userId,
+      status: "checkin",
+    };
+    boot4.alert(
+      {
+        msg: "決済を開始します。よろしいですか？",
+        title: "決済ページに移動します",
+        callback: function () {
+          window.location.href = "{{ result.info.paymentUrl.web }}";
+        },
+      },
+      "OK"
+    );
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends "base.html" %} {% block body %}
+<div class="row">
+  <h1 id="displaynamefield"></h1>
+  <button
+    type="button"
+    id="checkin"
+    class="btn btn-success w-100 mt-2"
+    data-toggle="modal"
+  >
+    チェックイン
+  </button>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="completeModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        チェックインしました
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var userId = "";
+
+  window.onload = function (e) {
+    initLiff("1654480575-kpzNayg8");
+  };
+
+  function initLiff(myLiffId) {
+    liff
+      .init({
+        liffId: myLiffId,
+      })
+      .then(() => {
+        if (!liff.isInClient()) {
+          alert("LINEアプリで起動してください");
+        } else {
+          // start to use LIFF's api
+          liff
+            .getProfile()
+            .then(function (profile) {
+              userId = profile.userId;
+              userName = profile.displayName;
+              document.getElementById("displaynamefield").textContent =
+                "ようこそ" + userName + "さん";
+              if (!liff.isInClient()) {
+                document.getElementById("logout").style.display = "block";
+              }
+            })
+            .catch(function (error) {
+              window.alert("Error getting profile: " + error);
+            });
+        }
+      });
+  }
+
+  // checkin操作
+  $("#checkin").on("click", function () {
+    var params = {
+      user_id: userId,
+      status: "checkin",
+    };
+    axios
+      .post("/callcheckin", params)
+      .then(function (response) {
+        boot4.alert(
+          {
+            msg: "いらっしゃいませ。中へお入りください",
+            title: "チェックイン完了",
+            callback: function () {
+              liff.closeWindow();
+            },
+          },
+          "OK"
+        );
+      })
+      .catch(function (error) {
+        alert("Debug: " + error);
+      });
+  });
+</script>
+{% endblock %}
