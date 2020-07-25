@@ -3,7 +3,6 @@ from flask import Flask, request, abort, jsonify, render_template
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from time import time
 import os
 import json
 import uuid
@@ -89,8 +88,8 @@ class userCheckIn(db.Model):
         default='checkin'
     )
     created_at = db.Column(
-        db.Integer,
-        default=int(time())
+        db.DateTime,
+        default=datetime.now()
     )
     updated_at = db.Column(
         db.DateTime,
