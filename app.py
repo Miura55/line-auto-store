@@ -63,13 +63,12 @@ class userTransaction(db.Model):
     product_id = db.Column(db.Integer)
     bought = db.Column(db.Boolean, default=False)
     created_at = db.Column(
-        db.Integer,
-        default=int(time())
+        db.DateTime,
+        default=datetime.now()
     )
     updated_at = db.Column(
         db.DateTime,
-        default=datetime.now(),
-        server_default='0'
+        server_default=db.text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
     )
 
     def __init__(self, data):
@@ -95,8 +94,7 @@ class userCheckIn(db.Model):
     )
     updated_at = db.Column(
         db.DateTime,
-        default=datetime.now(),
-        server_default='0'
+        server_default=db.text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
     )
 
     def __init__(self, data):
