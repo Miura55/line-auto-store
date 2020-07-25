@@ -67,7 +67,7 @@ class userTransaction(db.Model):
     )
     updated_at = db.Column(
         db.DateTime,
-        server_default=db.text('ON UPDATE CURRENT_TIMESTAMP')
+        server_default=db.text('CURRENT_TIMESTAMP')
     )
 
     def __init__(self, data):
@@ -93,7 +93,7 @@ class userCheckIn(db.Model):
     )
     updated_at = db.Column(
         db.DateTime,
-        server_default=db.text('ON UPDATE CURRENT_TIMESTAMP')
+        server_default=db.text('CURRENT_TIMESTAMP')
     )
 
     def __init__(self, data):
