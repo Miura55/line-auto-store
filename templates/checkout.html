@@ -37,7 +37,7 @@
       })
       .then(() => {
         if (!liff.isInClient()) {
-          alert("LINEアプリで起動してください");
+          window.location.href = "/reqcheckout";
         } else {
           // start to use LIFF's api
           liff

@@ -153,6 +153,11 @@ def req_checkin():
     return render_template('reqcheckin.html')
 
 
+@app.route('/reqcheckout')
+def req_checkout():
+    return render_template('reqcheckout.html')
+
+
 @app.route('/checkout')
 def check_out():
     # 入店中のユーザーを特定
