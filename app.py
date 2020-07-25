@@ -43,7 +43,7 @@ linePay = LinePayApi(
     LINE_PAY_CHANNEL_ID,
     LINE_PAY_CHANNEL_SECRET,
     is_sandbox=True
-    )
+)
 
 # アプリケーションの設定
 app = Flask(__name__, static_folder='static')
@@ -65,12 +65,12 @@ class userTransaction(db.Model):
     created_at = db.Column(
         db.Integer,
         default=int(time())
-        )
+    )
     updated_at = db.Column(
         db.DateTime,
         default=datetime.now(),
         server_default='0'
-        )
+    )
 
     def __init__(self, data):
         self.user_id = data['user_id']
@@ -88,16 +88,16 @@ class userCheckIn(db.Model):
     status = db.Column(
         db.Enum('checkin', 'checkout', name='status_flag'),
         default='checkin'
-        )
+    )
     created_at = db.Column(
         db.Integer,
         default=int(time())
-        )
+    )
     updated_at = db.Column(
         db.DateTime,
         default=datetime.now(),
         server_default='0'
-        )
+    )
 
     def __init__(self, data):
         self.user_id = data['user_id']
@@ -146,6 +146,11 @@ def call_checkin():
         "status": 200
     }
     return jsonify(response)
+
+
+@app.route('/reqcheckin')
+def req_checkin():
+    return render_template('reqcheckin.html')
 
 
 @app.route('/checkout')
@@ -199,11 +204,11 @@ def check_out():
                         "id": "product-001",
                         "name": "LINEオートストア",
                         "imageUrl": 'https://{}{}'.format(
-                                        os.environ.get('HOST_NAME'),
-                                        '/static/img/conbiniense_store.png'
-                                        ),
-                                    "quantity": 1,
-                                    "price": total
+                            os.environ.get('HOST_NAME'),
+                            '/static/img/conbiniense_store.png'
+                        ),
+                        "quantity": 1,
+                        "price": total
                     }
                 ]
             }

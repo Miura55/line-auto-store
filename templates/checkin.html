@@ -60,7 +60,7 @@
       })
       .then(() => {
         if (!liff.isInClient()) {
-          alert("LINEアプリで起動してください");
+          window.location.href = "/reqcheckin";
         } else {
           // start to use LIFF's api
           liff
@@ -70,9 +70,6 @@
               userName = profile.displayName;
               document.getElementById("displaynamefield").textContent =
                 "ようこそ" + userName + "さん";
-              if (!liff.isInClient()) {
-                document.getElementById("logout").style.display = "block";
-              }
             })
             .catch(function (error) {
               window.alert("Error getting profile: " + error);
