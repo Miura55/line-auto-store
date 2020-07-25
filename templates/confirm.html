@@ -7,8 +7,18 @@
   </button>
 </div>
 <script>
+  window.onload = function (e) {
+    initLiff("1654480575-kpzNayg8");
+  };
+
+  function initLiff(myLiffId) {
+    liff.init({
+      liffId: myLiffId,
+    });
+  }
+
   $("#close").on("click", function () {
-    window.open("about:blank", "_self").close();
+    liff.closeWindow();
   });
 </script>
 {% endblock %}
