@@ -2,5 +2,13 @@
 <div class="row">
   <h1>決済完了</h1>
   お買い上げありがとうございました
+  <button id="close" type="button" class="btn btn-danger w-100 mt-2">
+    アプリを終了する
+  </button>
 </div>
+<script>
+  $("#close").on("click", function () {
+    window.open("about:blank", "_self").close();
+  });
+</script>
 {% endblock %}
