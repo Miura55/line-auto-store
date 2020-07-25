@@ -155,6 +155,11 @@ def req_checkout():
     return render_template('reqcheckout.html')
 
 
+@app.route('/startapp')
+def start_app():
+    return render_template('startapp.html')
+
+
 @app.route('/checkout')
 def check_out():
     # 入店中のユーザーを特定

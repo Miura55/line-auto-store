@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% block body %}
+<script>
+  window.onload = function () {
+    initializeLiff("1654480575-34rJD6gw");
+  };
+
+  function initializeLiff(myLiffId) {
+    liff
+      .init({
+        liffId: myLiffId,
+      })
+      .then(() => {
+        liff
+          .scanCode()
+          .then((result) => {
+            const scanString = result.value;
+            if (
+              scanString == "1654480575-27WDXKOZ" ||
+              scanString == "1654480575-kpzNayg8"
+            ) {
+              window.location.href = "https://liff.line.me/" + scanString;
+            } else {
+              boot4.alert(
+                {
+                  msg: "対象のQRではありません",
+                  title: "エラー",
+                  callback: function () {
+                    liff.closeWindow();
+                  },
+                },
+                "OK"
+              );
+            }
+          })
+          .catch((err) => {
+            window.alert("scanCode failed!");
+          });
+      })
+      .catch((err) => {
+        window.alert("Something went wrong with LIFF initialization.");
+      });
+  }
+</script>
+{% endblock %}
