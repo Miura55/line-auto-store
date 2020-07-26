@@ -1,6 +1,6 @@
 {
   "type": "flex",
-  "altText": "Flex Message",
+  "altText": "レシート",
   "contents": {
     "type": "bubble",
     "direction": "ltr",
