@@ -247,8 +247,8 @@ def pay_confirm():
     # トランザクションデータを取り出す
     userId = CACHE.get("userId", '')
     userTransactionDB = db.session.query(userTransaction).\
-        filter(userTransaction.user_id == userId and
-               not userTransaction.bought)
+        filter(userTransaction.user_id == userId,
+               userTransaction.bought.is_(False))
     # 購入済みにする
     contents = [{
         "type": "separator",
