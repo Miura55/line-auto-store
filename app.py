@@ -313,14 +313,11 @@ def pay_confirm():
     recipt_form['contents']['body']['contents'] = contents
     recipt_form['contents']['footer']['contents'][0]['contents'][1]['text'] = transaction_id
 
+    # レシートの送信
+    container_obj = FlexSendMessage.new_from_json_dict(recipt_form)
     line_bot_api.push_message(
         userId,
-        [
-            FlexSendMessage(
-                alt_text='レシート',
-                contents=BubbleContainer.new_from_json_dict(recipt_form)
-            )
-        ]
+        messages=container_obj
     )
 
     # チェックアウトの処理
