@@ -21,7 +21,6 @@ from linebot.models import (
     TextSendMessage,
     StickerSendMessage,
     FlexSendMessage,
-    BubbleContainer
 )
 
 from dotenv import load_dotenv
@@ -311,8 +310,8 @@ def pay_confirm():
         recipt_form = json.load(f)
     # パラメータの設定
     recipt_form['contents']['body']['contents'] = contents
-    recipt_form['contents']['footer']['contents'][0]['contents'][1]['text'] = .\
-        CACHE.get('order_id', '0000000')
+    recipt_form['contents']['footer']['contents'][0]['contents'][1]['text'] = CACHE.get(
+        'order_id', '0000000')
 
     # レシートの送信
     container_obj = FlexSendMessage.new_from_json_dict(recipt_form)
