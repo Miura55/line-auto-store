@@ -312,9 +312,7 @@ def pay_confirm():
     # パラメータの設定
     recipt_form['contents']['body']['contents'] = contents
     recipt_form['contents']['footer']['contents'][0]['contents'][1]['text'] = .\
-        str(
-            transaction_id
-    )
+        CACHE.get('order_id', '0000000')
 
     # レシートの送信
     container_obj = FlexSendMessage.new_from_json_dict(recipt_form)
