@@ -20,6 +20,8 @@ from linebot.models import (
     TextMessage,
     TextSendMessage,
     StickerSendMessage,
+    FlexSendMessage,
+    BubbleContainer
 )
 
 from dotenv import load_dotenv
@@ -249,8 +251,77 @@ def pay_confirm():
         filter(userTransaction.user_id == userId and
                not userTransaction.bought)
     # 購入済みにする
+    contents = [{
+        "type": "separator",
+        "color": "#000000"
+    }]
+    amount = 0
     for data in userTransactionDB:
+        # 購入済みにする
         data.bought = True
+
+        # 明細をセット
+        productData = db.session.query(products).\
+            filter(products.id == data.product_id).\
+            first()
+        box = {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                  "type": "text",
+                  "text": productData.product_name,
+                  "size": "lg",
+                  "align": "start"
+              },
+                {
+                  "type": "text",
+                  "text": "¥{}".format(productData.price),
+                  "align": "end",
+                  "gravity": "bottom",
+                  "color": "#000000"
+              }
+            ]
+        }
+        contents.append(box)
+        amount += productData.price
+    # 合計金額をセット
+    contents += [{
+        "type": "separator",
+        "color": "#000000"
+    },
+        {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+            {
+                "type": "text",
+                  "text": "合計"
+            },
+            {
+                "type": "text",
+                "text": '¥{}'.format(amount),
+                "align": "end"
+            }
+        ]
+    }]
+
+    # レシート用のjsonを読み込む
+    with open('recipt.json', 'r', encoding='utf-8') as f:
+        recipt_form = json.load(f)
+    # パラメータの設定
+    recipt_form['contents']['body']['contents'] = contents
+    recipt_form['contents']['footer']['contents'][0]['contents'][1]['text'] = transaction_id
+
+    line_bot_api.push_message(
+        userId,
+        [
+            FlexSendMessage(
+                alt_text='レシート',
+                contents=BubbleContainer.new_from_json_dict(recipt_form)
+            )
+        ]
+    )
 
     # チェックアウトの処理
     userCheckInDB = db.session.query(userCheckIn).\

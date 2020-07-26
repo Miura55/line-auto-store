@@ -1,0 +1,122 @@
+{
+  "type": "flex",
+  "altText": "Flex Message",
+  "contents": {
+    "type": "bubble",
+    "direction": "ltr",
+    "header": {
+      "type": "box",
+      "layout": "vertical",
+      "contents": [
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "text",
+          "text": "お支払い",
+          "size": "lg",
+          "weight": "bold",
+          "color": "#3BE858"
+        },
+        {
+          "type": "text",
+          "text": "LINE Auto Store",
+          "size": "xl",
+          "weight": "bold"
+        }
+      ]
+    },
+    "body": {
+      "type": "box",
+      "layout": "vertical",
+      "contents": [
+        {
+          "type": "separator",
+          "color": "#000000"
+        },
+        {
+          "type": "box",
+          "layout": "horizontal",
+          "contents": [
+            {
+              "type": "text",
+              "text": "Candy",
+              "size": "lg",
+              "align": "start"
+            },
+            {
+              "type": "text",
+              "text": "¥200",
+              "align": "end",
+              "gravity": "bottom",
+              "color": "#000000"
+            }
+          ]
+        },
+        {
+          "type": "box",
+          "layout": "horizontal",
+          "contents": [
+            {
+              "type": "text",
+              "text": "Candy",
+              "size": "lg",
+              "align": "start"
+            },
+            {
+              "type": "text",
+              "text": "¥200",
+              "align": "end",
+              "gravity": "bottom",
+              "color": "#000000"
+            }
+          ]
+        },
+        {
+          "type": "separator",
+          "color": "#000000"
+        },
+        {
+          "type": "box",
+          "layout": "horizontal",
+          "contents": [
+            {
+              "type": "text",
+              "text": "合計"
+            },
+            {
+              "type": "text",
+              "text": "Text",
+              "align": "end"
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "type": "box",
+      "layout": "horizontal",
+      "contents": [
+        {
+          "type": "box",
+          "layout": "horizontal",
+          "contents": [
+            {
+              "type": "text",
+              "text": "#order_id ",
+              "align": "start",
+              "gravity": "bottom",
+              "color": "#A9A9A9"
+            },
+            {
+              "type": "text",
+              "text": "00000",
+              "align": "end",
+              "color": "#A9A9A9"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
