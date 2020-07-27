@@ -45,6 +45,9 @@ linePay = LinePayApi(
     is_sandbox=True
 )
 
+# LIFF ID
+START_APP_ID = os.environ.get("START_APP_ID")
+
 # アプリケーションの設定
 app = Flask(__name__, static_folder='static')
 CORS(app)
@@ -158,7 +161,7 @@ def req_checkout():
 
 @app.route('/startapp')
 def start_app():
-    return render_template('startapp.html')
+    return render_template('startapp.html', startAppId=START_APP_ID)
 
 
 @app.route('/checkout')
