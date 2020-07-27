@@ -129,6 +129,25 @@ def connect():
     return "Hello from Flask"
 
 
+@app.route('/reqcheckin')
+def req_checkin():
+    return render_template('reqcheckin.html')
+
+
+@app.route('/reqcheckout')
+def req_checkout():
+    return render_template('reqcheckout.html')
+
+
+@app.route('/startapp')
+def start_app():
+    return render_template(
+        'startapp.html',
+        startAppId=START_APP_ID,
+        checkinAppId=CHECKIN_APP_ID,
+        checkoutAppId=CHECKOUT_APP_ID)
+
+
 @app.route('/checkin')
 def check_in():
     return render_template('checkin.html', checkinAppId=CHECKIN_APP_ID)
@@ -149,25 +168,6 @@ def call_checkin():
         "status": 200
     }
     return jsonify(response)
-
-
-@app.route('/reqcheckin')
-def req_checkin():
-    return render_template('reqcheckin.html')
-
-
-@app.route('/reqcheckout')
-def req_checkout():
-    return render_template('reqcheckout.html')
-
-
-@app.route('/startapp')
-def start_app():
-    return render_template(
-        'startapp.html',
-        startAppId=START_APP_ID,
-        checkinAppId=CHECKIN_APP_ID,
-        checkoutAppId=CHECKOUT_APP_ID)
 
 
 @app.route('/checkout')
@@ -323,8 +323,11 @@ def pay_confirm():
         recipt_form = json.load(f)
     # パラメータの設定
     recipt_form['contents']['body']['contents'] = contents
-    recipt_form['contents']['footer']['contents'][0]['contents'][1]['text'] = CACHE.get(
-        'order_id', '0000000')
+    recipt_form['contents']['footer']['contents'][0]['contents'][1]['text'] =\
+        CACHE.get(
+        'order_id',
+        '0000000'
+    )
 
     # レシートの送信
     container_obj = FlexSendMessage.new_from_json_dict(recipt_form)
@@ -355,8 +358,12 @@ def insert_product():
     db.session.add(productsDB)
     db.session.commit()
 
+    # 登録したデータのIDを返す
+    lastData = db.session.query(products).order_by(products.id.desc()).first()
+
     response = {
         'message': 'OK',
+        'product_id': lastData.id,
         'status': 200
     }
     return jsonify(response)
