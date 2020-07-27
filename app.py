@@ -47,6 +47,8 @@ linePay = LinePayApi(
 
 # LIFF ID
 START_APP_ID = os.environ.get("START_APP_ID")
+CHECKIN_APP_ID = os.environ.get("CHECKIN_APP_ID")
+CHECKOUT_APP_ID = os.environ.get("CHECKOUT_APP_ID")
 
 # アプリケーションの設定
 app = Flask(__name__, static_folder='static')
@@ -129,7 +131,7 @@ def connect():
 
 @app.route('/checkin')
 def check_in():
-    return render_template('checkin.html')
+    return render_template('checkin.html', checkinAppId=CHECKIN_APP_ID)
 
 
 @app.route('/callcheckin', methods=['POST'])
@@ -161,7 +163,11 @@ def req_checkout():
 
 @app.route('/startapp')
 def start_app():
-    return render_template('startapp.html', startAppId=START_APP_ID)
+    return render_template(
+        'startapp.html',
+        startAppId=START_APP_ID,
+        checkinAppId=CHECKIN_APP_ID,
+        checkoutAppId=CHECKOUT_APP_ID)
 
 
 @app.route('/checkout')
@@ -233,7 +239,11 @@ def check_out():
     response = linePay.request(request_options)
     app.logger.debug(response)
 
-    return render_template('checkout.html', data=bought_data, result=response)
+    return render_template(
+        'checkout.html',
+        data=bought_data,
+        result=response,
+        checkoutAppId=CHECKOUT_APP_ID)
 
 
 @app.route('/confirm')

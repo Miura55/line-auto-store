@@ -15,8 +15,8 @@
           .then((result) => {
             const scanString = result.value;
             if (
-              scanString == "1654480575-27WDXKOZ" ||
-              scanString == "1654480575-kpzNayg8"
+              scanString == "{{ checkinAppId }}" ||
+              scanString == "{{ checkoutAppId }}"
             ) {
               window.location.href = "https://liff.line.me/" + scanString;
             } else {
