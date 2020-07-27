@@ -44,9 +44,9 @@ python app.py
   チェックアウト時のエンドポイント
 - `/insertproduct`
   商品用の DB に追加するためのエンドポイント
-  _Request Body_
 
   ```
+  # Request body
   {
       'product_name':'Cola',
       'price':200
@@ -54,10 +54,10 @@ python app.py
   ```
 
 - `/set_transaction`
-  スキャンした商品をトランザクションデータに登録(`/insertproduct`をリクエストしたときに返ってくる product*id を呼び出す)
-  \_Request Body*
+  スキャンした商品をトランザクションデータに登録(`/insertproduct`をリクエストしたときに返ってくる product_id を呼び出す)
 
   ```
+  # Request Body
   {
       'product_id': 1
   }
