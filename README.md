@@ -32,6 +32,20 @@ pip install -r requirements.txt
 python app.py
 ```
 
+## 商品のスキャン
+
+`NFC/nfc_scanner.py`で商品 ID を登録した NFC タグを読み取ってトランザクションデータに登録する（nfcpy をインストールしたパソコンか Raspberry Pi 上で動かす）
+
+### ライブラリのセットアップ
+
+```
+pip install nfcpy
+```
+
+### NFC タグのセット
+
+`NFC/set_tag.py`を実行し、prodct_id を登録する
+
 ## Endpoints
 
 - `/callback`

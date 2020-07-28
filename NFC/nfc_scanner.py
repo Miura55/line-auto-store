@@ -3,6 +3,7 @@ import logging
 import coloredlogs
 import requests
 
+# app.pyを起動しているサーバーのhostname(https://localhostであればlocalhost)
 host_name = 'YOUR_HOST_NAME'
 # logging
 logger = logging.getLogger('NFC Reader')
