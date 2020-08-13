@@ -2,7 +2,7 @@
 
 もしも LINE で無人コンビニをつくるなら
 
-## 実際の挙動
+## 
 [![DemoMovie](http://img.youtube.com/vi/_iTLLJa2nt0/0.jpg)](http://www.youtube.com/watch?v=_iTLLJa2nt0 "Demo")
 
 
